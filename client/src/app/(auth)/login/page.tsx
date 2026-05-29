@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 
 import { loginUser } from "@/services/api/auth-api";
 
+import { useAuthStore } from "@/store/auth-store";
+
 export default function LoginPage() {
   const router = useRouter();
 
@@ -13,6 +15,10 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
+
+  const setUser = useAuthStore(
+  (state) => state.setUser
+);
 
   const [loading, setLoading] = useState(false);
 
@@ -24,9 +30,11 @@ export default function LoginPage() {
     try {
       setLoading(true);
 
-      await loginUser(formData);
+const data = await loginUser(formData);
 
-      router.push("/dashboard");
+setUser(data.user);
+
+router.push("/dashboard");
     } catch (error) {
       console.log(error);
     } finally {
