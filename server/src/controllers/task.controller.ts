@@ -2,7 +2,7 @@ import { Response } from "express";
 
 import { prisma } from "../lib/prisma.js";
 
-import { AuthRequest } from "../types/express/index.js";
+import type { AuthRequest } from "../middleware/auth.middleware.js";
 
 import { createTaskSchema } from "../validators/task.validator.js";
 
